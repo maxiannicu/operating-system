@@ -46,8 +46,7 @@ In *.build* folder, you have 2 files:
 2. Floopy image
 
 # Screenshots
-[[.screenshots/asm.png|alt=octocat]]
- ASM bootloader
-[[.screenshots/C.png|alt=octocat]]
- C bootloader
+![ASM Bootloader](/.screenshots/asm.png "ASM Bootloader")
+![C Bootloader](/.screenshots/C.png "C Bootloader")
+
 
