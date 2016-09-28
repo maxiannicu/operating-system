@@ -10,22 +10,37 @@
 
 To install them, run the following command (**Ubuntu**):
 
-`sudo apt-get install build-essential qemu nasm gcc` 
+`sudo apt-get install build-essential qemu nasm gcc`
 
 
 # How to
 To build and run bootloader, please run following command from one **C** or **ASM**
 `./build.sh`
 
-Build structure
-
+You'll have following generated structure folder tree
+```
 .
-+-- _config.yml
-+-- C
-|   +-- .build
-|       +-- bootloader.bin
-|       +-- bootloader.flp
-+-- ASM
-|   +-- .build
-|       +-- bootloader.bin
-|       +-- bootloader.flp
+├── ASM
+│   ├── bootloader.asm
+│   ├── .build
+│   │   ├── bootloader.bin
+│   │   └── bootloader.flp
+│   └── build.sh
+├── C
+│   ├── .build
+│   │   ├── bootloader.bin
+│   │   ├── bootloader.flp
+│   ├── build.sh
+│   ├── convert.c
+│   ├── convert.h
+│   ├── includes.h
+│   ├── input.c
+│   ├── input.h
+│   ├── linker.ld
+│   └── main.c
+```
+
+In *.build* folder, you have 2 files:
+1. Binary executable
+2. Floopy image
+
