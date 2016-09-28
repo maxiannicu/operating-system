@@ -45,3 +45,9 @@ In *.build* folder, you have 2 files:
 1. Binary executable
 2. Floopy image
 
+# Screenshots
+[[.screenshots/asm.png|alt=octocat]]
+ ASM bootloader
+[[.screenshots/C.png|alt=octocat]]
+ C bootloader
+
