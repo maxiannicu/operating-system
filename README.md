@@ -1,12 +1,13 @@
-# Structure
-1. Assembly
-2. C
+# Intro
+This project contains simple written in : 
+1. Assembly (Contains I/O base operations)
+2. C (Contains Output operations, counter in hex)
 
 # Requirements
+0. **bash**
 1. **nasm** - the Netwide Assembler, a portable 80x86 assembler
 2. **gcc** - GNU project C and C++ compiler
 3. **qemu-system** - emulating system (can be replaced with **VirtualBox**)
-4. **bash** - Unix shell and command language
 
 To install them, run the following command (**Ubuntu**):
 

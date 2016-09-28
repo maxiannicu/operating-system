@@ -25,6 +25,9 @@ CALL PrintString
 mov si,FirstName
 CALL PrintString
 
+mov al,0x20
+CALL PrintCharacter
+
 mov si,LastName
 CALL PrintString
 
