@@ -1,5 +1,13 @@
+#include "../drivers/display.h"
+#include "../tools/string.h"
+
 void main(){
-	char* str = "Hello world";
-	char* video_memory = (char*)0xb8000;
-	*video_memory = 'x';
+	clear_screen();	
+	int i;
+	for(i=0; i < 200;i++){
+		char str[20];
+		itoa(i,str,10);
+		print(str);
+		print("\n");
+	}
 }

@@ -43,6 +43,9 @@ begin_pm:
     
     call KERNEL_OFFSET
     
+    mov ebx, MSG_KERNEL_EXIT
+    call print_string_pm
+    
     jmp $
 
 BOOT_DRIVE:
@@ -54,7 +57,9 @@ MSG_LOADING_KERNEL_FINISHED:
 MSG_REAL_MODE:
     db " Bootloader was started in 16bit mode. " , 13, 10, 0
 MSG_PROT_MODE:
-    db " Switched to 32bit - Protected Mode " , 13, 10, 0
+    db " Switched to 32bit - Protected Mode " , 0
+MSG_KERNEL_EXIT:
+    db " Exited from kernel " , 0
 
 times 510-($-$$) db 0
 dw 0xaa55
