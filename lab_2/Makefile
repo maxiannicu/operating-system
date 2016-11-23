@@ -1,4 +1,5 @@
-OS_BINARY = os.bin
+BOOTLOADER_BINARY = bootloader.bin
+KERNEL_BINARY = kernel.bin
 C_SOURCES = $(wildcard kernel/*.c drivers/*.c tools/*.c)
 C_HEADERS = $(wildcard kernel/*.h drivers/*.h tools/*.h)
 OBJ = ${C_SOURCES:.c=.o}
@@ -6,7 +7,7 @@ OBJ = ${C_SOURCES:.c=.o}
 	
 
 #kernel
-kernel.bin: kernel/entry.o ${OBJ}
+${KERNEL_BINARY}: kernel/entry.o ${OBJ}
 	ld -o $@ -m elf_i386 -Ttext 0x1000 $^ --oformat binary
 
 %.o: %.c ${C_HEADERS}
@@ -16,24 +17,20 @@ kernel.bin: kernel/entry.o ${OBJ}
 	nasm $< -f elf -o $@
 
 #bootloader
-%.bin: %.asm
+%.bin: bootloader/%.asm
 	nasm -f bin -I bootloader/ -o $@ $<
-
-#os
-${OS_BINARY}: bootloader/bootloader.bin kernel.bin
-	cat $^ > ${OS_BINARY}
 
 %.dis : %.bin
 	ndisasm -b 32 $< > $@
 
 #commands
-build: ${OS_BINARY}
+build: ${BOOTLOADER_BINARY} ${KERNEL_BINARY}
 
 clean:
-	rm -fr *.bin *.o ${OS_BINARY} *.dis
-	rm -fr kernel/*.o bootloader/*.bin drivers/*.o tools/*.o
+	rm -fr *.bin *.o
+	rm -fr kernel/*.o drivers/*.o tools/*.o
 
 rebuild : clean build
 
-run: ${OS_BINARY}
-	qemu-system-x86_64 -fda $<
+run: build
+	qemu-system-x86_64 -fda ${BOOTLOADER_BINARY} -fdb ${KERNEL_BINARY}

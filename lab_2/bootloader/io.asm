@@ -4,12 +4,19 @@ print_char:
     int 0x10
     popa
     ret
-
+    
+print_new_line:
+    mov al,13
+    call print_char
+    mov al,10
+    call print_char
+    ret
+    
 print_string:
     pusha
     iterate_char:
-        mov al,[si]
-        inc si
+        mov al,[bx]
+        inc bx
         or al,al
         jz exit_print_string
         call print_char
@@ -17,28 +24,62 @@ print_string:
     exit_print_string:
         popa
         ret	
-        
+
+print_hex_word:  
+    mov bx,ax
+    mov bh,al
+    call print_hex_byte
+    
+    mov bl,al
+    call print_hex_byte
+    
+    ret
+
+print_hex_byte:  
+    mov bl,al
+    
+    shr al,0x4
+    and al,0xf
+    call print_low_nibble
+    
+    mov al,bl
+    and al,0xf
+    call print_low_nibble
+    
+    ret
+    
+print_low_nibble:    
+    cmp al,10
+    jl is_digit
+     
+    is_leter:
+    sub al,10
+    add al,'a'
+    call print_char
+    ret
+    
+    is_digit:
+    add al,'0'   
+    call print_char
+    ret
+    
 
 load_disk:
     push dx
-    mov ah,0x02
+    mov ah,0x02 ; read sector function
     mov al,dh
-    mov ch,0x00
-    mov dh,0x00
-    mov cl,0x02
+    mov ch,0x00 ; select cylinder
+    mov dh,0x00 ; select head
+    mov cl,0x01 ; reading from 1st sector
     int 0x13
     
-    jc disk_error
-    
     pop dx
+    jc load_disk_error
+    
     cmp dh,al
-    jne disk_error
-    ret
+    jne load_disk_error
     
-disk_error:
-    mov si, disk_error_msg
-    call print_string
-    jmp $
-    
-disk_error_msg:
-    db "Disk read error !"
+    cmp ah,0
+    jne load_disk_error
+        
+    jmp load_disk_success
