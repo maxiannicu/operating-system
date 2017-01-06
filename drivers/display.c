@@ -6,26 +6,26 @@ void print(char* message){
 	print_at(message,-1,-1);
 }
 
-void print_at(char* message,int col,int row){
+void print_at(char* message,int32_t col,int32_t row){
 	// Update the cursor if col and row not negative .
 	if (col >= 0 && row >= 0) {
 		set_cursor(get_screen_offset(col,row));
 	}
 
 	// Loop through each char of the message and print it .
-	int i = 0;
+	int32_t i = 0;
 	while (message[i] != 0){
 		print_char(message[i++],col,row,WHITE_ON_BLACK);
 	}
 }
 
-void print_char(char character,int col,int row,char attribute_byte){
+void print_char(char character,int32_t col,int32_t row,char attribute_byte){
 	unsigned char *vidmem = (unsigned char *)VIDEO_ADDRESS;
 	
 	if(!attribute_byte)
 		attribute_byte = WHITE_ON_BLACK;
 	
-	int offset;
+	int32_t offset;
 	if(col >= 0 && row >=0){
 		offset = get_screen_offset(col,row);
 	} else {
@@ -45,7 +45,7 @@ void print_char(char character,int col,int row,char attribute_byte){
 	set_cursor(offset);
 }
 
-int get_cursor(){
+int32_t get_cursor(){
 	port_byte_out(REG_SCREEN_CTRL,14);
 	int offset = port_byte_in(REG_SCREEN_DATA) << 8;
 	port_byte_out(REG_SCREEN_CTRL,15);
@@ -54,11 +54,11 @@ int get_cursor(){
 	return offset*2;
 }
 
-int get_screen_offset(int col,int row){
+int32_t get_screen_offset(int32_t col,int32_t row){
 	return 2*(MAX_COLS*row+col);
 }
 
-void set_cursor(int offset){
+void set_cursor(int32_t offset){
 	offset /= 2;
 	port_byte_out(REG_SCREEN_CTRL,14);
 	port_byte_out(REG_SCREEN_DATA,(unsigned char)(offset >> 8));
@@ -67,8 +67,8 @@ void set_cursor(int offset){
 }
 
 void clear_screen(){
-	int row;
-	int col;
+	int32_t row;
+	int32_t col;
 
 	for(row = 0;row < MAX_ROWS;row++){
 		for(col = 0; col < MAX_COLS;col++){
@@ -79,13 +79,13 @@ void clear_screen(){
 	set_cursor(get_screen_offset(0,0));
 }
 
-int handle_scrolling(int cursor_offset){
+int32_t handle_scrolling(int32_t cursor_offset){
 	if (cursor_offset < MAX_ROWS*MAX_COLS*2) {
 		return cursor_offset;
 	}
 
 	/* Shuffle the rows back one . */
-	int i;
+	int32_t i;
 	for (i =1; i < MAX_ROWS;i ++) {
 		memory_copy (get_screen_offset(0,i)+VIDEO_ADDRESS,get_screen_offset(0,i-1)+VIDEO_ADDRESS,MAX_COLS*2);
 	}

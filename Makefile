@@ -24,6 +24,8 @@ ${KERNEL_BINARY}: kernel/entry.o ${OBJ}
 	ndisasm -b 32 $< > $@
 
 #commands
+all: rebuild
+
 build: ${BOOTLOADER_BINARY} ${KERNEL_BINARY}
 
 clean:
