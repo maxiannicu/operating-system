@@ -1,7 +1,3 @@
-# Intro
-This project contains simple written in : 
-1. Assembly (Contains I/O base operations)
-2. C (Contains Output operations, counter in hex)
 
 # Requirements
 0. **bash**
