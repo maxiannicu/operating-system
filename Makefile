@@ -7,7 +7,7 @@ OBJ = ${C_SOURCES:.c=.o}
 	
 
 #kernel
-${KERNEL_BINARY}: kernel/entry.o ${OBJ}
+${KERNEL_BINARY}: kernel/entry.o ${OBJ} kernel/interrupt.o
 	ld -o $@ -m elf_i386 -Ttext 0x1000 $^ --oformat binary
 
 %.o: %.c ${C_HEADERS}

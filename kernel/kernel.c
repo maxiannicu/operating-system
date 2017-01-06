@@ -1,13 +1,13 @@
 #include "../drivers/display.h"
+#include "../drivers/keyboard.h"
 #include "../tools/string.h"
+#include "timer.h"
+#include "isr.h"
 
 void main(){
 	clear_screen();	
-	int i;
-	for(i=0; i < 200;i++){
-		char str[20];
-		itoa(i,str,10);
-		print(str);
-		print("\n");
-	}
+	isr_init();
+
+	keyboard_init();
+	//timer_init(50);
 }
