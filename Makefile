@@ -1,13 +1,13 @@
 BOOTLOADER_BINARY = bootloader.bin
 KERNEL_BINARY = kernel.bin
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c tools/*.c)
-C_HEADERS = $(wildcard kernel/*.h drivers/*.h tools/*.h)
+C_SOURCES = $(wildcard os/kernel/*.c os/modules/*.c os/tools/*.c)
+C_HEADERS = $(wildcard os/kernel/*.h os/modules/*.h os/tools/*.h)
 OBJ = ${C_SOURCES:.c=.o}
 
 	
 
 #kernel
-${KERNEL_BINARY}: kernel/entry.o ${OBJ} kernel/interrupt.o
+${KERNEL_BINARY}: os/kernel/entry.o ${OBJ} os/kernel/interrupt.o
 	ld -o $@ -m elf_i386 -Ttext 0x1000 $^ --oformat binary
 
 %.o: %.c ${C_HEADERS}
@@ -30,7 +30,7 @@ build: ${BOOTLOADER_BINARY} ${KERNEL_BINARY}
 
 clean:
 	rm -fr *.bin *.o
-	rm -fr kernel/*.o drivers/*.o tools/*.o
+	rm -fr os/kernel/*.o os/drivers/*.o os/tools/*.o
 
 rebuild : clean build
 

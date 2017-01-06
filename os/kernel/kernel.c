@@ -1,7 +1,7 @@
-#include "../drivers/display.h"
-#include "../drivers/keyboard.h"
+#include "../modules/display.h"
+#include "../modules/keyboard.h"
+#include "../modules/timer.h"
 #include "../tools/string.h"
-#include "timer.h"
 #include "isr.h"
 
 void main(){

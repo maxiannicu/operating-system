@@ -1,6 +1,7 @@
 #include "display.h"
-#include "../kernel/low_level.h"
-#include "../kernel/memory.h"
+
+#include "../tools/ports.h"
+#include "../tools/memory.h"
 
 void print(char* message){
 	print_at(message,-1,-1);

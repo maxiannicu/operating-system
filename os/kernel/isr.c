@@ -1,5 +1,6 @@
 #include "isr.h"
-#include "../drivers/display.h"
+
+#include "../modules/display.h"
 #include "idt.h"
 #include "../tools/string.h"
 

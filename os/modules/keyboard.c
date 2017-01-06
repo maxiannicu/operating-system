@@ -1,7 +1,8 @@
 #include "keyboard.h"
 #include "display.h"
+
 #include "../kernel/isr.h"
-#include "../kernel/low_level.h"
+#include "../tools/ports.h"
 #include "../tools/string.h"
 
 #define SCAN_CODE_MAP_SIZE 57
