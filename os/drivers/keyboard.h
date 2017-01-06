@@ -7,7 +7,7 @@
 #define KEY_ESC 0x1B
 #define KEY_BACKSPACE 0x8
 #define KEY_TAB 0x9
-#define KEY_ENTER 0xD
+#define KEY_ENTER 0xA
 #define KEY_SPACE 0x20
 
 // additional non ascii keys
@@ -17,6 +17,7 @@
 #define KEY_LEFT_ALT 131
 
 void keyboard_init();
-char keyboard_get_key(uint8_t scancode);
+
+char keyboard_get();
 
 #endif

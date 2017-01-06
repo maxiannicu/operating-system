@@ -1,18 +1,18 @@
 #include "timer.h"
 #include "display.h"
-#include "../tools/string.h"
 #include "../kernel/isr.h"
+#include "../runtime/string.h"
 
 uint32_t tick = 0;
 
 static void timer_callback(registers_t regs) {
     tick++;
-    print("Tick: ");
+    display_print_str("Tick: ");
 
     char tick_ascii[256];
     itoa(tick, tick_ascii,10);
-    print(tick_ascii);
-    print("\n");
+    display_print_str(tick_ascii);
+    display_print_str("\n");
 }
 
 void timer_init(uint32_t freq) {

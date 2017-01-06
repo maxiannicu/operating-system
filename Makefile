@@ -1,9 +1,8 @@
 BOOTLOADER_BINARY = bootloader.bin
 KERNEL_BINARY = kernel.bin
-C_SOURCES = $(wildcard os/kernel/*.c os/modules/*.c os/tools/*.c)
-C_HEADERS = $(wildcard os/kernel/*.h os/modules/*.h os/tools/*.h)
+C_SOURCES = $(wildcard os/*/*.c)
+C_HEADERS = $(wildcard os/*/*.h)
 OBJ = ${C_SOURCES:.c=.o}
-
 	
 
 #kernel
@@ -30,7 +29,7 @@ build: ${BOOTLOADER_BINARY} ${KERNEL_BINARY}
 
 clean:
 	rm -fr *.bin *.o
-	rm -fr os/kernel/*.o os/drivers/*.o os/tools/*.o
+	rm -fr os/*/*.o
 
 rebuild : clean build
 

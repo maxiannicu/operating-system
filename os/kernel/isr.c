@@ -1,8 +1,8 @@
 #include "isr.h"
 
-#include "../modules/display.h"
+#include "../drivers/display.h"
+#include "../runtime/string.h"
 #include "idt.h"
-#include "../tools/string.h"
 
 interrupt_handler interrupt_handlers[256];
 
@@ -117,13 +117,13 @@ void isr_init() {
 }
 
 void isr_handler(registers_t r) {
-    print("ISR: ");
+    display_print_str("ISR: ");
     char s[3];
     itoa(r.int_no, s,10);
-    print(s);
-    print("\n");
-    print(exception_messages[r.int_no]);
-    print("\n");
+    display_print_str(s);
+    display_print_str("\n");
+    display_print_str(exception_messages[r.int_no]);
+    display_print_str("\n");
 }
 
 void irq_handler(registers_t r) {
