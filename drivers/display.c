@@ -6,6 +6,10 @@ void print(char* message){
 	print_at(message,-1,-1);
 }
 
+void print_char(char c){
+	print_char_at(c,-1,-1,WHITE_ON_BLACK);
+}
+
 void print_at(char* message,int32_t col,int32_t row){
 	// Update the cursor if col and row not negative .
 	if (col >= 0 && row >= 0) {
@@ -15,11 +19,11 @@ void print_at(char* message,int32_t col,int32_t row){
 	// Loop through each char of the message and print it .
 	int32_t i = 0;
 	while (message[i] != 0){
-		print_char(message[i++],col,row,WHITE_ON_BLACK);
+		print_char_at(message[i++],col,row,WHITE_ON_BLACK);
 	}
 }
 
-void print_char(char character,int32_t col,int32_t row,char attribute_byte){
+void print_char_at(char character,int32_t col,int32_t row,char attribute_byte){
 	unsigned char *vidmem = (unsigned char *)VIDEO_ADDRESS;
 	
 	if(!attribute_byte)
@@ -72,7 +76,7 @@ void clear_screen(){
 
 	for(row = 0;row < MAX_ROWS;row++){
 		for(col = 0; col < MAX_COLS;col++){
-			print_char(' ',col,row,WHITE_ON_BLACK);
+			print_char_at(' ',col,row,WHITE_ON_BLACK);
 		}
 	}
 

@@ -16,7 +16,8 @@
 
 void print(char* message);
 void print_at(char* message,int32_t col,int32_t row);
-void print_char(char character,int32_t col,int32_t row,char attribute_byte);
+void print_char(char c);
+void print_char_at(char character,int32_t col,int32_t row,char attribute_byte);
 int32_t get_cursor();
 int32_t get_screen_offset(int32_t col,int32_t row);
 void set_cursor(int32_t offset);
