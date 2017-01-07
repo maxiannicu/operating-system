@@ -4,6 +4,9 @@
 #include "../drivers/display.h"
 #include <stdarg.h>
 
+int8_t io_is_char_printable(char c){
+	return (c > 31 && c < 127) || (c == KEY_BACKSPACE) || (c == KEY_ENTER);
+}
 
 void io_init(){
 	keyboard_init();
@@ -11,7 +14,13 @@ void io_init(){
 }
 
 char io_get_char(){
-	return keyboard_get();
+	char c;
+	while(1){
+		c = keyboard_get();
+		if(io_is_char_printable(c)){
+			return c;
+		}
+	}
 }
 
 int32_t io_get_int(){
@@ -38,10 +47,12 @@ void io_get_str(char *str,uint8_t size){
 		} else if(counter >= size - 2){
 			goto finish_get_str;
 		} else {
-			str[++counter] = c;
+			if(io_is_char_printable(c))
+				str[++counter] = c;
 		}
 
-		display_print_char(c);
+		if(io_is_char_printable(c))
+			display_print_char(c);
 	}
 
 	finish_get_str:
@@ -78,11 +89,14 @@ void io_printf(char* format,...)
 
     for(traverse = format; *traverse != '\0'; traverse++)
     {
-        while( *traverse != '%' )
+        while( *traverse != '%' && *traverse != '\0')
         {
             io_put_char(*traverse);
             traverse++;
         }
+
+        if(*traverse == '\0')
+        	break;
 
         traverse++;
 
@@ -130,11 +144,15 @@ void io_scanf(char* format,...){
 
 	for(traverse = format; *traverse != '\0'; traverse++)
 	{
-		while( *traverse != '%' )
-		{
-			io_put_char(*traverse);
-			traverse++;
-		}
+
+        while( *traverse != '%' && *traverse != '\0')
+        {
+            io_put_char(*traverse);
+            traverse++;
+        }
+
+        if(*traverse == '\0')
+        	break;
 
 		traverse++;
 
@@ -143,6 +161,7 @@ void io_scanf(char* format,...){
 		{
 			case 'c' : c = va_arg(arg,char*);     //Fetch char argument
 						*c = io_get_char();
+						io_put_char(*c);
 						break;
 
 			case 'd' : i = va_arg(arg,int*);         //Fetch Decimal/Integer argument

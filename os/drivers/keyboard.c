@@ -99,10 +99,8 @@ static void keyboard_callback(registers_t regs) {
     if(scancode < SCAN_CODE_MAP_SIZE){
 		char key = keyboard_get_key(scancode);
 
-		if(key < 128){
-			buffer_full = 1;
-			buffer_key = key;
-		}
+		buffer_full = 1;
+		buffer_key = key;
     }
 }
 

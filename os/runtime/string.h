@@ -10,5 +10,8 @@ int32_t atoi(char* str);
 
 void reverse(char* str);
 
+int32_t strcmp(const char* s1, const char* s2);
+
+void strcpy(char dest[], const char source[]);
 
 #endif

@@ -4,6 +4,7 @@
 
 void io_init();
 
+int8_t io_is_char_printable(char c);
 char io_get_char();
 int32_t io_get_int();
 void io_get_str(char *str,uint8_t size);

@@ -74,3 +74,19 @@ void reverse(char* str){
 			end--;
     }
 }
+
+int32_t strcmp(const char* s1, const char* s2)
+{
+    while(*s1 && (*s1==*s2))
+        s1++,s2++;
+    return *(const unsigned char*)s1-*(const unsigned char*)s2;
+}
+
+void strcpy(char dest[], const char source[]) {
+	uint32_t i = 0;
+	while (1) {
+		dest[i] = source[i];
+		if (dest[i] == '\0') break;
+		i++;
+	}
+}

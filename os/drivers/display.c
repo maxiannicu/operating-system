@@ -40,6 +40,8 @@ void display_print_char_at(char character,int32_t col,int32_t row,char attribute
 	if(character == '\n'){
 		int rows = offset / (2*MAX_COLS);
 		offset = display_get_screen_offset(79,rows);
+	} else if(character == '\t'){
+		offset += 6;
 	} else if(character == 0x8) { // backspace
 		vidmem[offset-2] = ' ';
 		vidmem[offset-1] = attribute_byte;
