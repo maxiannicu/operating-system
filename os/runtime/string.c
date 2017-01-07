@@ -1,13 +1,13 @@
-#include "../runtime/string.h"
+#include "string.h"
 
-int strlen(char *str){
-	int length = -1;
+int32_t strlen(char *str){
+	int32_t length = -1;
 	while(str[++length] != '\0');
 
 	return length;
 }
 
-char* itoa(int num, char* str, int base){
+char* itoa(int32_t num, char* str, int32_t base){
     int i = 0;
     char isNegative = 0;
  
@@ -40,6 +40,27 @@ char* itoa(int num, char* str, int base){
  
     // Reverse the string
     reverse(str);
+}
+
+int32_t atoi(char *str)
+{
+	int32_t res = 0; // Initialize result
+	int8_t negative = 0;
+
+    // Iterate through all characters of input string and update result
+    for (int32_t i = 0; str[i] != '\0'; ++i){
+    	if(i == 0 && str[i] == '-')
+    		negative = -1;
+    	else
+    		res = res*10 + str[i] - '0';
+    }
+
+    if (negative){
+    	res *= -1;
+    }
+
+    // return result.
+    return res;
 }
 
 void reverse(char* str){

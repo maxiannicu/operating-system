@@ -113,10 +113,10 @@ void keyboard_init() {
 }
 
 char keyboard_get(){
+	buffer_key = 0;
+	buffer_full = 0;
 	while(!buffer_full); // wait for key
 	char return_key = buffer_key;
-	buffer_key = 0; // reset key from buffer
-	buffer_full = 0; // reset key from
 
 	return return_key;
 }
