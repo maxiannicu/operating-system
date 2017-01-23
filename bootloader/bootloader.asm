@@ -38,7 +38,7 @@ load_kernel:
         call print_new_line
         
         mov bx, KERNEL_OFFSET ; where to load
-        mov dh, 15 ; how many sectors to load
+        mov dh, 30 ; how many sectors to load
         mov dl, [DRIVES_LIST+si] ; from which drive to load
         jmp load_disk  
         

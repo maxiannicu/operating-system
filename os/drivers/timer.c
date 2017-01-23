@@ -2,6 +2,7 @@
 #include "display.h"
 #include "../kernel/isr.h"
 #include "../runtime/string.h"
+#include "../runtime/ports.h"
 
 uint32_t tick = 0;
 

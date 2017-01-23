@@ -3,6 +3,8 @@
 #include "../runtime/string.h"
 #include "calculator.h"
 #include "clearscreen.h"
+#include "shutdown.h"
+#include "sort.h"
 
 void apps_init_calculator(){
 	Task calculator;
@@ -20,7 +22,25 @@ void apps_init_clear_screen(){
 	shell_add(calculator);
 }
 
+void apps_init_shutdown(){
+	Task shutdown;
+	strcpy(shutdown.name,"shutdown");
+	strcpy(shutdown.description,"Shutdowns PC");
+	shutdown.entry = &shutdown_start;
+	shell_add(shutdown);
+}
+
+void apps_init_sort(){
+	Task sortTask;
+	strcpy(sortTask.name,"sort");
+	strcpy(sortTask.description,"Sorts an array of numbers");
+	sortTask.entry = &sort_start;
+	shell_add(sortTask);
+}
+
 void apps_init(){
 	apps_init_calculator();
 	apps_init_clear_screen();
+	apps_init_shutdown();
+	apps_init_sort();
 }

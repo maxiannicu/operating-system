@@ -2,6 +2,7 @@
 
 #include "../drivers/display.h"
 #include "../runtime/string.h"
+#include "../runtime/ports.h"
 #include "idt.h"
 
 interrupt_handler interrupt_handlers[256];
