@@ -10,7 +10,7 @@ ${KERNEL_BINARY}: os/kernel/entry.o ${OBJ} os/kernel/interrupt.o
 	ld -o $@ -m elf_i386 -Ttext 0x1000 $^ --oformat binary
 
 %.o: %.c ${C_HEADERS}
-	gcc -ffreestanding -m32 -c $< -o $@
+	gcc -ffreestanding -m32 -fno-pie -fno-stack-protector -c $< -o $@
 
 %.o: %.asm
 	nasm $< -f elf -o $@
